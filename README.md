@@ -4,35 +4,9 @@
 
 ### _Next-Generation AI-Powered Learning Ecosystem_
 
-[![React](https://img.shields.io/badge/React-18-C9B458?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-6DAEDB?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-6DAEDB?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
-[![Gemini AI](https://img.shields.io/badge/Gemini-Pro-C9B458?style=for-the-badge&logo=google&logoColor=black)](https://deepmind.google/technologies/gemini/)
-[![Three.js](https://img.shields.io/badge/Three.js-VR-C9B458?style=for-the-badge&logo=three.js&logoColor=black)](https://threejs.org/)
-
-_Revolutionizing education through AI, accessibility, and immersive learning experiences._
-
-**Built by Team BitCode**
-
-[Features](#-core-features) • [Tech Stack](#-technology-stack) • [Architecture](#-architecture)
-
-</div>
-
----
-
 ## 📖 Table of Contents
 
-- [Introduction](#-introduction)
-- [Problem Statement](#-problem-statement)
-- [Our Solution](#-our-solution)
-- [Core Features](#-core-features)
-- [Technical Architecture](#-technical-architecture)
-- [Technology Stack](#-technology-stack)
-- [System Flow](#-system-flow)
-- [Database Schema](#-database-schema)
-- [Team](#-team)
 
----
 
 ## 🌟 Introduction
 
