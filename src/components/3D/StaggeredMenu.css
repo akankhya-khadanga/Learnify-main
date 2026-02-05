@@ -1,0 +1,242 @@
+/* StaggeredMenu CSS */
+.staggered-menu-wrapper {
+  --sm-accent: #5227FF;
+  position: relative;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.staggered-menu-wrapper.fixed-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.sm-prelayers {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  pointer-events: none;
+  z-index: 9997;
+}
+
+.staggered-menu-wrapper[data-position="left"] .sm-prelayers {
+  left: 0;
+}
+
+.staggered-menu-wrapper[data-position="right"] .sm-prelayers {
+  right: 0;
+}
+
+.sm-prelayer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  will-change: transform;
+}
+
+.staggered-menu-header {
+  position: relative;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: transparent;
+}
+
+.sm-logo-img {
+  display: block;
+  height: auto;
+}
+
+.sm-toggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  transition: opacity 0.2s ease;
+}
+
+.sm-toggle:hover {
+  opacity: 0.8;
+}
+
+.sm-toggle-textWrap {
+  position: relative;
+  height: 1.2em;
+  overflow: hidden;
+  display: block;
+}
+
+.sm-toggle-textInner {
+  display: block;
+  will-change: transform;
+}
+
+.sm-toggle-line {
+  display: block;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.sm-icon {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 24px;
+  will-change: transform;
+}
+
+.sm-icon-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.sm-icon-line-v {
+  transform: rotate(90deg);
+}
+
+.staggered-menu-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  max-width: 500px;
+  background: #1a1a22;
+  z-index: 9998;
+  will-change: transform;
+  overflow-y: auto;
+}
+
+.staggered-menu-wrapper[data-position="left"] .staggered-menu-panel {
+  left: 0;
+}
+
+.staggered-menu-wrapper[data-position="right"] .staggered-menu-panel {
+  right: 0;
+}
+
+.sm-panel-inner {
+  padding: 8rem 3rem 3rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sm-panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: sm-counter;
+}
+
+.sm-panel-list[data-numbering] .sm-panel-item::before {
+  content: counter(sm-counter, decimal-leading-zero);
+  counter-increment: sm-counter;
+  position: absolute;
+  left: -3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--sm-accent);
+  opacity: var(--sm-num-opacity, 0);
+  transition: opacity 0.3s ease;
+}
+
+.sm-panel-itemWrap {
+  margin-bottom: 1rem;
+}
+
+.sm-panel-item {
+  position: relative;
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  overflow: hidden;
+}
+
+.sm-panel-item:hover {
+  color: var(--sm-accent);
+}
+
+.sm-panel-itemLabel {
+  display: block;
+  will-change: transform;
+}
+
+.sm-socials {
+  margin-top: auto;
+  padding-top: 3rem;
+}
+
+.sm-socials-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  margin-bottom: 1rem;
+}
+
+.sm-socials-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.sm-socials-item {
+  margin: 0;
+}
+
+.sm-socials-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sm-socials-link:hover {
+  color: var(--sm-accent);
+}
+
+@media (max-width: 768px) {
+  .staggered-menu-panel {
+    max-width: 100vw;
+  }
+
+  .sm-panel-inner {
+    padding: 6rem 2rem 2rem;
+  }
+
+  .sm-panel-item {
+    font-size: 2rem;
+  }
+
+  .sm-panel-list[data-numbering] .sm-panel-item::before {
+    left: -2rem;
+  }
+}

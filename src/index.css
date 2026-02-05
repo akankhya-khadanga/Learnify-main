@@ -1,0 +1,497 @@
+/* Import Orbitron font for futuristic titles */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+/* stylelint-disable at-rule-no-unknown */
+/* Tailwind CSS directives - these are processed during build */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
+
+/* Universal responsive grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* MODERN DARK THEME - New Color Palette */
+    --background: 228 29% 7%;
+    /* #0C0E17 - Main background */
+    --foreground: 0 0% 100%;
+    /* #FFFFFF - Primary text */
+
+    --card: 220 16% 11%;
+    /* #171B21 - Primary panels */
+    --card-foreground: 0 0% 100%;
+
+    --popover: 225 13% 14%;
+    /* #1F2229 - Cards/inner panels */
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 73 97% 73%;
+    /* #DAFD78 neon lime */
+    --primary-foreground: 228 29% 7%;
+
+    --secondary: 256 33% 50%;
+    /* #6C5BA6 purple */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 228 10% 18%;
+    /* #25272E - Card surfaces */
+    --muted-foreground: 220 6% 66%;
+    /* #9FA3AE - Muted text */
+
+    --accent: 225 10% 21%;
+    /* #31343B - Inner panels */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 86% 63%;
+    /* #F85149 */
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 140 66% 48%;
+    /* #3FB950 */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 40 72% 49%;
+    /* #D29922 */
+    --warning-foreground: 228 29% 7%;
+
+    --border: 225 10% 21%;
+    /* #31343B */
+    --input: 220 16% 11%;
+    --ring: 73 97% 73%;
+    /* neon lime focus */
+
+    --radius: 0.75rem;
+
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Same modern dark theme */
+    --background: 228 29% 7%;
+    --foreground: 0 0% 100%;
+
+    --card: 220 16% 11%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 225 13% 14%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 73 97% 73%;
+    --primary-foreground: 228 29% 7%;
+
+    --secondary: 256 33% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 228 10% 18%;
+    --muted-foreground: 220 6% 66%;
+
+    --accent: 225 10% 21%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 86% 63%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 140 66% 48%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 40 72% 49%;
+    --warning-foreground: 228 29% 7%;
+
+    --border: 225 10% 21%;
+    --input: 220 16% 11%;
+    --ring: 256 33% 50%;
+  }
+
+  .light {
+    /* Modern light theme */
+    --background: 0 0% 98%;
+    /* #FAFAFA - Clean white background */
+    --foreground: 228 29% 15%;
+    /* #1A1D28 - Dark text */
+
+    --card: 0 0% 100%;
+    /* #FFFFFF - White cards */
+    --card-foreground: 228 29% 15%;
+
+    --popover: 0 0% 100%;
+    /* #FFFFFF - White popovers */
+    --popover-foreground: 228 29% 15%;
+
+    --primary: 73 85% 45%;
+    /* #88D800 - Vibrant lime green (darker for light bg) */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 256 45% 55%;
+    /* #7B63C4 - Adjusted purple */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 13% 95%;
+    /* #F1F2F4 - Light gray surfaces */
+    --muted-foreground: 220 9% 38%;
+    /* Darker muted text for better contrast in light mode */
+
+    --accent: 220 13% 91%;
+    /* #E5E7EB - Subtle accent */
+    --accent-foreground: 228 29% 15%;
+
+    --destructive: 0 84% 60%;
+    /* #F87171 - Red */
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    /* #22C55E - Green */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    /* #F59E0B - Amber */
+    --warning-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    /* #E5E7EB - Light borders */
+    --input: 0 0% 100%;
+    --ring: 73 85% 45%;
+    /* Lime green focus */
+  }
+
+  .colorblind {
+    /* Color-blind Safe Mode */
+    --primary: 200 100% 50%;
+    --accent: 40 100% 55%;
+    --success: 150 100% 40%;
+    --destructive: 0 100% 55%;
+    --muted: 45 50% 60%;
+  }
+
+  .dyslexia {
+    /* Applied via body class for font changes */
+    font-family: 'OpenDyslexic', 'Atkinson Hyperlegible', sans-serif;
+    letter-spacing: 0.05em;
+    line-height: 1.7;
+    word-spacing: 0.12em;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply bg-background;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Neon lime selection color */
+  ::selection {
+    background-color: rgba(218, 253, 120, 0.3);
+    color: #FFFFFF;
+  }
+
+  ::-moz-selection {
+    background-color: rgba(218, 253, 120, 0.3);
+    color: #FFFFFF;
+  }
+
+  /* Custom scrollbar with neon lime accent */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0C0E17;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #31343B;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #484F58;
+  }
+
+  /* Thin scrollbar for sidebar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(218, 253, 120, 0.2);
+    border-radius: 2px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(218, 253, 120, 0.4);
+  }
+
+  /* Neon lime focus states */
+  input:focus,
+  textarea:focus,
+  select:focus,
+  button:focus-visible {
+    outline: 2px solid rgba(218, 253, 120, 0.6);
+    outline-offset: 2px;
+  }
+
+  /* Dyslexia font loading */
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/ttf/OpenDyslexic-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+@layer utilities {
+  .gradient-cosmic {
+    background: var(--gradient-cosmic);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-success {
+    background: var(--gradient-success);
+  }
+
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Study planner calendar overrides */
+.study-calendar .react-calendar {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.study-calendar .react-calendar__navigation {
+  margin-bottom: 1rem;
+  padding: 0.25rem;
+  border-radius: var(--radius);
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+}
+
+.study-calendar .react-calendar__navigation button {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  background: transparent;
+  border-radius: calc(var(--radius) / 2);
+}
+
+.study-calendar .react-calendar__navigation button:enabled:hover {
+  background-color: hsl(var(--secondary) / 0.4);
+}
+
+.study-calendar .react-calendar__tile {
+  border-radius: 0.75rem;
+  min-height: 64px;
+  padding: 0.5rem;
+  transition: var(--transition-smooth);
+}
+
+.study-calendar .react-calendar__tile--now {
+  background-color: hsl(var(--accent) / 0.15);
+}
+
+.study-calendar .has-study-task {
+  position: relative;
+  background-color: hsl(var(--primary) / 0.15);
+  color: hsl(var(--primary));
+  font-weight: 600;
+}
+
+.study-calendar .has-study-task::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background-color: hsl(var(--primary));
+}
+
+/* Ensure native picker icons stay visible on dark backgrounds */
+.dark input[type='date']::-webkit-calendar-picker-indicator,
+.dark input[type='time']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.dark input[type='date']::-moz-focus-inner,
+.dark input[type='time']::-moz-focus-inner {
+  filter: invert(1);
+}
+
+/* Phase 15: Accessibility Suite Styles */
+
+/* High Contrast Mode */
+.high-contrast {
+  --tw-border-opacity: 1 !important;
+  --tw-shadow: 0 0 0 4px rgba(0, 0, 0, 1) !important;
+}
+
+.high-contrast * {
+  border-width: 3px !important;
+  font-weight: 700 !important;
+}
+
+/* Colorblind SVG Filters */
+.colorblind-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Dyslexia Font Fallback */
+.dyslexia-font {
+  font-family: 'Comic Sans MS', 'Verdana', sans-serif !important;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+  line-height: 1.6;
+}
+
+/* Caption Bar Responsive */
+@media (max-width: 768px) {
+  .caption-bar {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+}
+
+/* Accessibility Focus Indicators */
+*:focus-visible {
+  outline: 4px solid #DAFD78 !important;
+  outline-offset: 2px !important;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile Responsive Utilities */
+@media (max-width: 768px) {
+
+  /* Ensure touch targets are at least 44x44px */
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Reduce padding on mobile for better space usage */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Stack cards vertically on mobile */
+  .grid {
+    /* .grid now uses auto-fit/minmax for all breakpoints, so no override needed */
+  }
+
+  /* Adjust font sizes for mobile */
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Make brutal shadows smaller on mobile */
+  .shadow-gold-brutal,
+  .shadow-pink-brutal {
+    box-shadow: 4px 4px 0px 0px currentColor !important;
+  }
+}
+
+/* Tablet Responsive */
+/* Removed fixed grid-template-columns for .grid on tablet, now always responsive */
+/* Touch-friendly hover states */
+@media (hover: none) {
+  .hover\:scale-105:hover {
+    transform: scale(1) !important;
+  }
+
+  .hover\:shadow-brutal:hover {
+    box-shadow: inherit !important;
+  }
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better focus visibility for keyboard navigation */
+*:focus-visible {
+  outline: 3px solid hsl(var(--primary)) !important;
+  outline-offset: 3px !important;
+  border-radius: 4px;
+}
+
+/* Gamification Animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}

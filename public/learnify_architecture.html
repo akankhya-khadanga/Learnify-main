@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnify Architecture</title>
+    <style>
+        :root {
+            --neon: #CCFF00;
+            --purple: #A855F7;
+            --bg: #000000;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(204, 255, 0, 0.05) 0%, transparent 20%);
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            background: linear-gradient(to right, white, var(--neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        .diagram-container {
+            display: grid;
+            gap: 40px;
+            max-width: 1200px;
+            width: 95%;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Connecting Lines */
+        .connector {
+            position: absolute;
+            background: linear-gradient(to bottom, var(--purple), var(--neon));
+            width: 2px;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .layer {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            z-index: 1;
+        }
+
+        .layer:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon);
+            box-shadow: 0 10px 30px -10px rgba(204, 255, 0, 0.1);
+        }
+
+        .layer-title {
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: var(--bg);
+            padding: 0 15px;
+            color: var(--neon);
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
+        .grid-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .item:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: var(--purple);
+            transform: scale(1.05);
+        }
+
+        .item i {
+            font-style: normal;
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .item span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Flow Indicators */
+        .flow-arrow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--border);
+            height: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .flow-arrow::after {
+            content: '▼';
+            font-size: 1.5rem;
+            background: linear-gradient(to bottom, var(--purple), var(--neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .diagram-container {
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Learnify Architecture</h1>
+        <div class="subtitle">AI-Powered Learning Platform System Design</div>
+    </div>
+
+    <div class="diagram-container">
+
+        <!-- CLIENT LAYER -->
+        <div class="layer" style="border-top: 3px solid var(--neon);">
+            <div class="layer-title">Client Layer (Frontend)</div>
+            <div class="grid-items">
+                <div class="item">
+                    <i>💻</i>
+                    <span>Web Application</span>
+                    <div class="badge">React 18 + Vite</div>
+                </div>
+                <div class="item">
+                    <i>🎨</i>
+                    <span>UI Components</span>
+                    <div class="badge">Tailwind + Framer</div>
+                </div>
+                <div class="item">
+                    <i>🛣️</i>
+                    <span>Routing</span>
+                    <div class="badge">React Router</div>
+                </div>
+                <div class="item">
+                    <i>📦</i>
+                    <span>State</span>
+                    <div class="badge">Zustand</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow"></div>
+
+        <!-- SERVICE LAYER -->
+        <div class="layer" style="border-top: 3px solid var(--purple);">
+            <div class="layer-title">Service Layer (Logic)</div>
+            <div class="grid-items">
+                <div class="item">
+                    <i>👥</i>
+                    <span>Friends Service</span>
+                    <div class="badge">Graph Logic</div>
+                </div>
+                <div class="item">
+                    <i>💬</i>
+                    <span>Messaging Service</span>
+                    <div class="badge">Real-time Sub</div>
+                </div>
+                <div class="item">
+                    <i>📚</i>
+                    <span>Study Groups</span>
+                    <div class="badge">Collaboration</div>
+                </div>
+                <div class="item">
+                    <i>🤖</i>
+                    <span>AI Service</span>
+                    <div class="badge">Gemini Integration</div>
+                </div>
+                <div class="item">
+                    <i>✨</i>
+                    <span>Gamification</span>
+                    <div class="badge">XP System</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow"></div>
+
+        <!-- INFRASTRUCTURE LAYER -->
+        <div class="layer" style="border-top: 3px solid #3B82F6;">
+            <div class="layer-title">Infrastructure (Supabase)</div>
+            <div class="grid-items">
+                <div class="item">
+                    <i>🔐</i>
+                    <span>Authentication</span>
+                    <div class="badge">Google OAuth</div>
+                </div>
+                <div class="item">
+                    <i>⚡</i>
+                    <span>Realtime</span>
+                    <div class="badge">WebSockets</div>
+                </div>
+                <div class="item">
+                    <i>🛡️</i>
+                    <span>Security (RLS)</span>
+                    <div class="badge">Policies</div>
+                </div>
+                <div class="item">
+                    <i>🗂️</i>
+                    <span>Storage</span>
+                    <div class="badge">Media Bucket</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow"></div>
+
+        <!-- DATA LAYER -->
+        <div class="layer" style="border-top: 3px solid #EC4899;">
+            <div class="layer-title">Data Layer (PostgreSQL)</div>
+            <div class="grid-items">
+                <div class="item">
+                    <span>users</span>
+                </div>
+                <div class="item">
+                    <span>friendships</span>
+                </div>
+                <div class="item">
+                    <span>study_groups</span>
+                </div>
+                <div class="item">
+                    <span>messages</span>
+                </div>
+                <div class="item">
+                    <span>reactions</span>
+                </div>
+                <div class="item">
+                    <span>achievements</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Simple animation on load
+        document.querySelectorAll('.item').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                item.style.transition = 'all 0.5s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    </script>
+</body>
+
+</html>

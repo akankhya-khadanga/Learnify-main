@@ -1,0 +1,10 @@
+.distortion-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.distortion-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

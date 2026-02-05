@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  # Neo4j - For CCP (Code Context Propagation)
+  neo4j:
+    image: neo4j:latest
+    container_name: learnify-neo4j
+    ports:
+      - "7474:7474" # HTTP
+      - "7687:7687" # Bolt
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    volumes:
+      - neo4j-data:/data
+    networks:
+      - observability
+
+  # Elasticsearch - Log storage
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: learnify-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - observability
+
+  # Logstash - Log processing
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: learnify-logstash
+    volumes:
+      - ./elk/logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    environment:
+      - "LS_JAVA_OPTS=-Xmx256m -Xms256m"
+    networks:
+      - observability
+    depends_on:
+      - elasticsearch
+
+  # Kibana - Log visualization
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: learnify-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    networks:
+      - observability
+    depends_on:
+      - elasticsearch
+
+  # Hypertrace All-in-One - Distributed Tracing
+  hypertrace:
+    image: hypertrace/hypertrace:main
+    container_name: learnify-hypertrace
+    ports:
+      # Hypertrace UI
+      - "2020:2020"
+      # OpenTelemetry Collector - gRPC
+      - "4317:4317"
+      # OpenTelemetry Collector - HTTP
+      - "4318:4318"
+      # Zipkin
+      - "9411:9411"
+    environment:
+      - HT_ENABLE_DEBUG_LOGGING=true
+    volumes:
+      - hypertrace-data:/data
+    networks:
+      - observability
+
+volumes:
+  neo4j-data:
+    driver: local
+  elasticsearch-data:
+    driver: local
+  hypertrace-data:
+    driver: local
+
+networks:
+  observability:
+    driver: bridge

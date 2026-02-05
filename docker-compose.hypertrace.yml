@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # Hypertrace All-in-One
+  hypertrace:
+    image: hypertrace/hypertrace:main
+    container_name: learnify-hypertrace
+    ports:
+      # Hypertrace UI
+      - "2020:2020"
+      # OpenTelemetry Collector - gRPC
+      - "4317:4317"
+      # OpenTelemetry Collector - HTTP
+      - "4318:4318"
+      # Zipkin
+      - "9411:9411"
+    environment:
+      - HT_ENABLE_DEBUG_LOGGING=true
+    volumes:
+      - hypertrace-data:/data
+    networks:
+      - observability
+
+volumes:
+  hypertrace-data:
+    driver: local
+
+networks:
+  observability:
+    driver: bridge

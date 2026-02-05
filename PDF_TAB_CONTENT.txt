@@ -1,0 +1,103 @@
+          {/* PDF Viewer Tab */}
+          <TabsContent value="pdf">
+            {!selectedPdf ? (
+              <Card className="border border-white/10 rounded-2xl shadow-card-glow bg-[#0D1117]">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-black uppercase text-blue">
+                    <TranslatedText text="PDF Annotator" />
+                  </CardTitle>
+                  <CardDescription className="text-white font-bold">
+                    <TranslatedText text="Upload and annotate PDF documents with drawing, highlighting, and notes" />
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-blue p-12 text-center bg-black/30">
+                    <FileUp className="mb-4 h-16 w-16 text-blue" />
+                    <h3 className="mb-2 text-xl font-black uppercase text-white">
+                      <TranslatedText text="Upload PDF Document" />
+                    </h3>
+                    <p className="mb-4 text-sm text-white font-bold">
+                      <TranslatedText text="Upload a PDF file to view and annotate" />
+                    </p>
+                    <label htmlFor="pdf-upload">
+                      <Button
+                        asChild
+                        className="bg-blue text-white border-2 border-black shadow-blue-heavy font-black uppercase hover:bg-blue/80"
+                        disabled={isUploadingPdf}
+                      >
+                        <span>
+                          {isUploadingPdf ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              <TranslatedText text="Uploading..." />
+                            </>
+                          ) : (
+                            <TranslatedText text="Choose PDF File" />
+                          )}
+                        </span>
+                      </Button>
+                      <input
+                        id="pdf-upload"
+                        type="file"
+                        className="hidden"
+                        accept=".pdf"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+
+                          setIsUploadingPdf(true);
+                          try {
+                            const userId = await getCurrentUserId();
+                            if (!userId) {
+                              toast({
+                                title: 'Not logged in',
+                                description: 'Please log in to upload PDFs',
+                                variant: 'destructive',
+                              });
+                              return;
+                            }
+
+                            const { document, error } = await pdfService.uploadPDF(userId, file);
+                            if (error) throw new Error(error);
+
+                            setSelectedPdf(document);
+                            toast({
+                              title: 'PDF uploaded',
+                              description: `${file.name} uploaded successfully`,
+                            });
+                          } catch (error: any) {
+                            toast({
+                              title: 'Upload failed',
+                              description: error.message || 'Failed to upload PDF',
+                              variant: 'destructive',
+                            });
+                          } finally {
+                            setIsUploadingPdf(false);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-black uppercase text-white">{selectedPdf.title}</h2>
+                  <Button
+                    variant="outline"
+                    onClick={() => setSelectedPdf(null)}
+                    className="font-black uppercase"
+                  >
+                    <X className="mr-2 h-4 w-4" />
+                    <TranslatedText text="Close" />
+                  </Button>
+                </div>
+                <PDFAnnotator
+                  documentId={selectedPdf.id}
+                  pdfUrl={selectedPdf.file_url}
+                  userId={selectedPdf.user_id}
+                />
+              </div>
+            )}
+          </TabsContent>

@@ -1,0 +1,32 @@
+# API environment variables referenced in this repository
+
+VITE_GEMINI_API_KEY
+- src/lib/gemini.ts (uses `import.meta.env.VITE_GEMINI_API_KEY`)
+- src/lib/aiClient.ts (uses `import.meta.env.VITE_GEMINI_API_KEY`)
+- src/services/geminiLesson.ts (uses `import.meta.env.VITE_GEMINI_API_KEY`)
+- src/components/workspace/ChatGPTHelper.tsx (L283)
+- src/components/workspace/NotebookLLMHelper.tsx (L278)
+- src/components/workspace/InstructorHelper.tsx (L381)
+- supabase/functions/query-tutor/index.ts (Deno.env.get('VITE_GEMINI_API_KEY'))
+
+VITE_YOUTUBE_API_KEY
+- src/components/workspace/YouTubeHelper.tsx (L258)
+
+VITE_RAPIDAPI_KEY
+- src/services/translateService.ts (L6)
+- README.md (example placeholder)
+
+VITE_JUDGE0_KEY
+- src/components/IDE.tsx (L95)
+- README.md (example placeholder)
+
+VITE_SUPABASE_ANON_KEY
+- src/components/AITutorPanel.tsx (L82)
+
+RESEND_API_KEY
+- supabase/functions/send-exam-emails/index.ts (Deno.env.get('RESEND_API_KEY'))
+
+Notes:
+- README contains example placeholders (e.g., `VITE_GEMINI_API_KEY=your_gemini_api_key`).
+- No hard-coded raw keys were found; the code references these via environment variables.
+- If you'd like, I can also scan git history for past commits that may have contained keys.

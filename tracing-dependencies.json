@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@opentelemetry/sdk-trace-node": "^1.17.0",
+    "@opentelemetry/resources": "^1.17.0",
+    "@opentelemetry/semantic-conventions": "^1.17.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.43.0",
+    "@opentelemetry/sdk-trace-base": "^1.17.0",
+    "@opentelemetry/instrumentation": "^0.43.0",
+    "@opentelemetry/instrumentation-http": "^0.43.0",
+    "@opentelemetry/instrumentation-express": "^0.33.0"
+  }
+}
